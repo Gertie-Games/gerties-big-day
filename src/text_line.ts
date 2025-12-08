@@ -1,4 +1,5 @@
-import { Actor, Collider, CollisionContact, Engine, Side, vec, Text, Sound, TextOptions } from "excalibur";
+import { Actor, vec, Text, Sound } from "excalibur";
+import * as ex from "excalibur"
 
 // Actors are the main unit of composition you'll likely use, anything that you want to draw and move around the screen
 // is likely built with an actor
@@ -12,34 +13,53 @@ import { Actor, Collider, CollisionContact, Engine, Side, vec, Text, Sound, Text
 // actor.actions
 // actor.pointer
 
+export type TextLineOptions = ex.ActorArgs & {
+    text: Text
+    voiceLine?: Sound,
+    backgroundColor?: ex.Color,
+}
 
 export class TextLine extends Actor {
     text: Text;
-    voiceLine: null|Sound;
-  constructor(textOpts:TextOptions, voiceLine=null) {
-    super({
-      // Giving your actor a name is optional, but helps in debugging using the dev tools or debug mode
-      // https://github.com/excaliburjs/excalibur-extension/
-      // Chrome: https://chromewebstore.google.com/detail/excalibur-dev-tools/dinddaeielhddflijbbcmpefamfffekc
-      // Firefox: https://addons.mozilla.org/en-US/firefox/addon/excalibur-dev-tools/
-      name: 'Text',
-      pos: vec(0, 0),
-      width: 100,
-      height: 100
-      // anchor: vec(0, 0), // Actors default center colliders and graphics with anchor (0.5, 0.5)
-      // collisionType: CollisionType.Active, // Collision Type Active means this participates in collisions read more https://excaliburjs.com/docs/collisiontypes
-    });
-    this.text = new Text(textOpts);
-    this.graphics.use(this.text);
-    this.voiceLine = voiceLine;
-  }
+    voiceLine?: Sound;
+    constructor(textOpts: TextLineOptions) {
+        super({
+            name: 'Text',
+            pos: vec(0, 0),
+            ...textOpts
+        });
+        this.text = textOpts.text;
+        this.graphics.use(
+            new ex.GraphicsGroup({
+                members: [
+                    {
+                        graphic: new ex.Rectangle({
+                            height: this.height,
+                            width: this.width,
+                            color: this.color
+                        }), 
+                        offset: ex.vec(0, 0)
+                    },
+                    { graphic: this.text, offset: ex.vec(0, 0) }
+                ]
+            })
+        )
+        // this.graphics.onPreDraw = (ctx) => {
+        //     ctx.save(); // Save current state
+        //     // console.log(ctx);
+        //     // ctx.fillStyle = this.color; // Set fill color (e.g., Yellow)
+        //     // ctx.fillRect(0, 0, ctx.canvasWidth, ctx.canvasHeight); // Fill actor's bounds
+        //     ctx.restore(); // Restore state
+        // }
+        this.voiceLine = textOpts.voiceLine;
+    }
 
   setPosition(x:number, y:number) {
     this.pos = vec(x, y);
   }
 
   defaultClickedAction() {
-    if (this.voiceLine !== null) {
+    if (typeof this.voiceLine !== "undefined") {
         this.voiceLine.play()
     }
   }
@@ -65,30 +85,6 @@ export class TextLine extends Actor {
     // 4. Lazy instantiation
 
     this.setInteractions();
-    
   }
 
-  override onPreUpdate(engine: Engine, elapsedMs: number): void {
-    // Put any update logic here runs every frame before Actor builtins
-  }
-
-  override onPostUpdate(engine: Engine, elapsedMs: number): void {
-    // Put any update logic here runs every frame after Actor builtins
-  }
-
-  override onPreCollisionResolve(self: Collider, other: Collider, side: Side, contact: CollisionContact): void {
-    // Called before a collision is resolved, if you want to opt out of this specific collision call contact.cancel()
-  }
-
-  override onPostCollisionResolve(self: Collider, other: Collider, side: Side, contact: CollisionContact): void {
-    // Called every time a collision is resolved and overlap is solved
-  }
-
-  override onCollisionStart(self: Collider, other: Collider, side: Side, contact: CollisionContact): void {
-    // Called when a pair of objects are in contact
-  }
-
-  override onCollisionEnd(self: Collider, other: Collider, side: Side, lastContact: CollisionContact): void {
-    // Called when a pair of objects separates
-  }
 }
