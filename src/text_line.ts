@@ -1,4 +1,5 @@
 import { Actor, vec, Text, Sound } from "excalibur";
+import { Resources } from "./resources";
 import * as ex from "excalibur"
 
 // Actors are the main unit of composition you'll likely use, anything that you want to draw and move around the screen
@@ -15,8 +16,7 @@ import * as ex from "excalibur"
 
 export type TextLineOptions = ex.ActorArgs & {
     text: Text
-    voiceLine?: Sound,
-    backgroundColor?: ex.Color,
+    voiceLine?: Sound
 }
 
 export class TextLine extends Actor {
@@ -36,7 +36,8 @@ export class TextLine extends Actor {
                         graphic: new ex.Rectangle({
                             height: this.height,
                             width: this.width,
-                            color: this.color
+                            color: this.color,
+                            opacity: this.graphics.opacity
                         }), 
                         offset: ex.vec(0, 0)
                     },
@@ -87,4 +88,8 @@ export class TextLine extends Actor {
     this.setInteractions();
   }
 
+}
+
+export const TextList:Record<string, ex.Resource<string>> = {
+  "dad_and_dogs": Resources.Text.DadAndDogs
 }

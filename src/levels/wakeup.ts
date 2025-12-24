@@ -1,0 +1,20 @@
+import { LevelBase } from "./base";
+
+export class WakeUp extends LevelBase {
+    sceneTransitions = {
+        'right':'home'
+    }
+
+    textMap = {
+        textbox:{
+            "text":`Gertie, wake up! You've 
+         gotta 
+         head down to Beckley Park for your big day!" 
+        `,
+            "height":122.2,
+            "width":791.273,
+            "maxWidth":791.273,
+            "coords":[1118.72,231.238]
+        }
+    }
+}

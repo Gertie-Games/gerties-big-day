@@ -31,6 +31,7 @@ export class Character extends Actor {
     voiceLines: Record<string, ex.Sound> | null = null;
     spriteSheetLoader: (() => ex.SpriteSheet) | null = null;
     spriteSheet: ex.SpriteSheet | null = null;
+    staticSprite: ex.ImageSource | null = null;
     animations: Record<string, ex.Animation> | null = null;
     animationIndices: Record<string, AnimData> | null = null;
 
@@ -70,7 +71,6 @@ export class Character extends Actor {
         if (this.spriteSheet !== null && this.animationIndices !== null) {
             for (const animName in this.animationIndices) {
                 let animData = this.animationIndices[animName];
-                console.log("loading", animName, "from", animData)
                 anims[animName] = Animation.fromSpriteSheet(
                     this.spriteSheet,
                     animData.indices,
@@ -105,7 +105,6 @@ export class Character extends Actor {
 
     playVoiceLine(name: string): boolean {
         if (this.voiceLines !== null) {
-            console.log(this.voiceLines);
             let defaultVoiceLine = this.voiceLines[name];
             if (defaultVoiceLine !== undefined) {
                 defaultVoiceLine.play()
@@ -124,32 +123,60 @@ export class Character extends Actor {
         this.playVoiceLine('default');
     }
 
-    setInteractions() {
-        // Sometimes you want to click on an actor!
-        this.on('pointerdown', evt => {
-            // Pointer events tunnel in z order from the screen down, you can cancel them!
-            // if (true) {
-            //   evt.cancel();
-            // }
-            this.defaultClickedAction();
-        });
+    hasInteractions(): boolean {
+        let vl = this.voiceLines?.default
+        return (
+            vl !== undefined && vl !== null
+        )
+    }
+    setInteractions(engine:Engine) {
+        if (this.hasInteractions()) {
+            const canvas = engine.canvas
+            if (canvas) {
+                this.on('pointerenter', () => {
+                    canvas.style.cursor = 'pointer';
+                });
+
+                this.on('pointerleave', () => {
+                    canvas.style.cursor = 'default';
+                });
+            };
+            this.on('pointerdown', evt => {
+                // Pointer events tunnel in z order from the screen down, you can cancel them!
+                // if (true) {
+                //   evt.cancel();
+                // }
+                this.defaultClickedAction();
+            });
+        }
     }
 
     setDefaultGraphic() {
         if (!this.setAnimation('default')) {
             let sprite = this.spriteSheet?.getSprite(0, 0);
+            if (sprite === undefined) {
+                sprite = this.staticSprite?.toSprite();
+            }
             if (sprite !== undefined) {
-                this.graphics.use(sprite);
                 if (this.width !== undefined) {
-                    sprite.scale = ex.vec(this.width / sprite.width, this.height / sprite.height)
+                    if (this.height !== undefined) {
+                        sprite.scale = ex.vec(this.width / sprite.width, this.height / sprite.height)
+                    } else {
+                        let scaling = this.width / sprite.width;
+                        sprite.scale = ex.vec(scaling, scaling)
+                    }
+                } else if (this.height !== undefined) {
+                    let scaling = this.height / sprite.height;
+                    sprite.scale = ex.vec(scaling, scaling)
                 }
+                this.graphics.use(sprite);
             } else {
                 console.log("no default sprite available");
             }
         }
     }
 
-    override onInitialize() {
+    override onInitialize(engine:Engine) {
         // Generally recommended to stick logic in the "On initialize"
         // This runs before the first update
         // Useful when
@@ -163,7 +190,7 @@ export class Character extends Actor {
         this.setDefaultGraphic();
         this.loadActions();
         this.loadVoiceLines();
-        this.setInteractions();
+        this.setInteractions(engine);
 
     }
 

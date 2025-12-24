@@ -1,19 +1,6 @@
 import { Character } from "./character";
 import { Resources, SpriteSheetLoader } from "../resources";
 
-// Actors are the main unit of composition you'll likely use, anything that you want to draw and move around the screen
-// is likely built with an actor
-
-// They contain a bunch of useful components that you might use
-// actor.transform
-// actor.motion
-// actor.graphics
-// actor.body
-// actor.collider
-// actor.actions
-// actor.pointer
-
-
 export class Gertie extends Character {
     name = "Gertie";
     spriteSheetLoader = SpriteSheetLoader.Gertie;
