@@ -37,12 +37,12 @@ export class Beckley extends LevelBase {
     
     textMap = {
         textbox:{
-            "text":`There are definitely balloons there! Let's go! 
-        `,
+            "text":`There are definitely balloons there! Let's go!`,
             "height":122.2,
             "width":559.896,
             "maxWidth":559.896,
-            "coords":[368.224,122.94]
+            "coords":[368.224,122.94],
+
         }
     }
 

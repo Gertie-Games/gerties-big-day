@@ -9,7 +9,7 @@ export class Chand extends LevelBase {
         'right':'longs'
     }
 
-        actorMap = {
+    actorMap = {
         math_lady:{
             "character":"math_lady",
             "height":298.528,
@@ -54,22 +54,24 @@ export class Chand extends LevelBase {
         
         gertie:{
             "character":"gertie",
-            "height":204.963,
-            "coords":[396.172,899.709]
+            "height":197.299,
+            "coords":[393.617,903.541]
         }
     }
     
     textMap = {
         textbox:{
-            "text":`It's Grandma! 
-         "I know that Beckley is just down the road here Gertie, but we've 
-         gotta 
-         study this cool mushroom. Can you find another way around?" 
-        `,
+            "text":`It's Grandma! "I know that Beckley is just 
+ down the road here Gertie, 
+ but we've gotta study this cool 
+ mushroom. Can you find 
+ another way around?"`,
             "height":347.8,
             "width":660.575,
             "maxWidth":660.575,
-            "coords":[1213.76,236.423]
+            "coords":[1213.76,236.423],
+            "backgroundColor":"#FFFFFF",
+            "opacity":0.90588
         }
     }
 

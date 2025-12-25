@@ -10,6 +10,18 @@ export class Party extends LevelBase {
             "coords":[218.385,345.466]
         },
         
+        tommy:{
+            "character":"tommy",
+            "height":191.0,
+            "coords":[193.926,552.43]
+        },
+        
+        meg_string_segment:{
+            "character":"meg_string_segment",
+            "height":72.7483,
+            "coords":[218.385,543.877]
+        },
+        
         me:{
             "character":"me",
             "height":171.903,
@@ -31,13 +43,13 @@ export class Party extends LevelBase {
         laney:{
             "character":"laney",
             "height":63.8909,
-            "coords":[367.985,562.447]
+            "coords":[364.66,562.447]
         },
         
         marnie:{
             "character":"marnie",
             "height":63.8909,
-            "coords":[318.834,555.728]
+            "coords":[305.534,569.027]
         },
         
         picnic_table:{
@@ -70,12 +82,6 @@ export class Party extends LevelBase {
             "coords":[125.029,568.414]
         },
         
-        tommy:{
-            "character":"tommy",
-            "height":191.0,
-            "coords":[193.926,552.43]
-        },
-        
         gus:{
             "character":"gus",
             "height":98.9503,
@@ -100,16 +106,16 @@ export class Party extends LevelBase {
             "coords":[802.598,637.257]
         },
         
+        ralph:{
+            "character":"ralph",
+            "height":120.722,
+            "coords":[783.481,703.144]
+        },
+        
         gertie:{
             "character":"gertie",
             "height":112.027,
             "coords":[1070.0,654.841]
-        },
-        
-        meg_string_segment:{
-            "character":"meg_string_segment",
-            "height":72.7483,
-            "coords":[218.385,543.877]
         },
         
         balloons4:{
@@ -128,12 +134,13 @@ export class Party extends LevelBase {
     textMap = {
         textbox:{
             "text":`We made it and everyone is here! 
-         Happy Birthday Gertie! 
-        `,
-            "height":235.0,
-            "width":559.896,
-            "maxWidth":559.896,
-            "coords":[1289.82,140.773]
+ Happy Birthday Gertie!`,
+            "height":122.2,
+            "width":716.992,
+            "maxWidth":716.992,
+            "coords":[1211.28,84.3732],
+            "backgroundColor":"#FFFFFF",
+            "opacity":0.85098
         }
     }
 }

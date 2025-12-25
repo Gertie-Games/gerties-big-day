@@ -46,6 +46,15 @@ class SceneTransitionActor extends Actor {
         if (subopts.height === undefined) {
             subopts.height = 100
         }
+        if (subopts.name === undefined) {
+            if (scene !== undefined) {
+                if (dir !== undefined) {
+                    subopts.name = scene + "-" + dir
+                } else {
+                    subopts.name = scene
+                }
+            }
+        }
         super(subopts);
         this.sceneName = scene;
         this.keyBindings = bindings;
@@ -80,7 +89,7 @@ class SceneTransitionActor extends Actor {
                             size: 108,
                             family: "Helvetica",
                             baseAlign: ex.BaseAlign.Middle,
-                            textAlign: ex.TextAlign.Start,
+                            textAlign: ex.TextAlign.Left,
                             // unit: ex.FontUnit.Px
                         }),
                     })
@@ -93,18 +102,24 @@ class SceneTransitionActor extends Actor {
     override onRemove(engine: Engine): void {
         let downEvent = this._eventMap["down"];
         if (downEvent !== undefined) {
-            engine.input.pointers.primary.off('down', downEvent);
+            engine.input.pointers.at(0).off('down', downEvent);
         }
         let upEvent = this._eventMap["up"];
         if (upEvent !== undefined) {
-            engine.input.pointers.primary.off('up', upEvent);
+            engine.input.pointers.at(0).off('up', upEvent);
         }
+    }
 
+    activate(engine: Engine) {
+        if (this.dragDir !== undefined) {
+            engine.input.pointers.at(0).on('down', this._dragStart());
+            engine.input.pointers.at(0).on('up', this._dragEnd(engine));
+        }
     }
 
     override onInitialize(engine: Engine): void {
         this.on('pointerdown', evt => {
-            engine.goToScene(this.sceneName)
+            this.applyTransition(engine)
         });
 
         const canvas = engine.canvas
@@ -119,8 +134,8 @@ class SceneTransitionActor extends Actor {
         }
         
         if (this.dragDir !== undefined) {
-            engine.input.pointers.primary.on('down', this._dragStart());
-            engine.input.pointers.primary.on('up', this._dragEnd(engine));
+            engine.input.pointers.at(0).on('down', this._dragStart());
+            engine.input.pointers.at(0).on('up', this._dragEnd(engine));
         }
     }
 
@@ -128,7 +143,6 @@ class SceneTransitionActor extends Actor {
         const actor = this;
         return function (ev:ex.PointerEvent) {
             actor._dragEv = ev;
-            console.log("start", ev)
         }
     }
 
@@ -156,10 +170,22 @@ class SceneTransitionActor extends Actor {
                     }
                 }
                 if (applyTransition) {
-                    engine.goToScene(actor.sceneName)
+                    actor.applyTransition(engine)
                 }
             }
         }
+    }
+
+    applyTransition(engine:Engine) {
+        let downEvent = this._eventMap["down"];
+        if (downEvent !== undefined) {
+            engine.input.pointers.at(0).off('down', downEvent);
+        }
+        let upEvent = this._eventMap["up"];
+        if (upEvent !== undefined) {
+            engine.input.pointers.at(0).off('up', upEvent);
+        }
+        engine.goToScene(this.sceneName)
     }
 
 
@@ -174,7 +200,7 @@ class SceneTransitionActor extends Actor {
         if (this.keyBindings?.length) {
             for (const key of this.keyBindings) {
                 if (engine.input.keyboard.wasPressed(key)) {
-                    engine.goToScene(this.sceneName)
+                    this.applyTransition(engine)
                 }
 
             }
@@ -182,10 +208,10 @@ class SceneTransitionActor extends Actor {
     }
 
     static fromDir(dir:string, scene:string): SceneTransitionActor {
-        let pos = vec(1583, 512);
+        let pos = vec(1610, 512);
         let bindings = [Keys.Right];
         if (dir == "left") {
-            pos = vec(0, 512)
+            pos = vec(25, 512)
             bindings = [Keys.Left];
         }
         return new SceneTransitionActor({
@@ -200,7 +226,13 @@ class SceneTransitionActor extends Actor {
 export class LevelBase extends Scene {
     music?: Sound;
     backgroundImage?: ImageSource;
-    background?: Actor;
+    background?: Actor
+    transitionActors:Record<string, SceneTransitionActor>
+
+    constructor() {
+        super()
+        this.transitionActors = {}
+    }
 
     override onInitialize(engine: Engine): void {
         // Scene.onInitialize is where we recommend you perform the composition for your game
@@ -214,11 +246,8 @@ export class LevelBase extends Scene {
         for (const name in actors) {
             this.add(actors[name]); // Actors need to be added to a scene to be drawn
         }
-        this.loadTransitions();
+        this.transitionActors = this.loadTransitions();
         this.loadMusic();
-
-        engine.input.pointers.primary.off("down");
-        engine.input.pointers.primary.off("up");
     }
 
     loadMusic() {
@@ -230,11 +259,20 @@ export class LevelBase extends Scene {
 
     sceneTransitions: Record<string, string> = {};
     loadTransitions() {
+        let transitionActors:Record<string, SceneTransitionActor> = {}
         for (const dir in this.sceneTransitions) {
             let next = this.sceneTransitions[dir];
             if (next !== undefined) {
-                this.add(SceneTransitionActor.fromDir(dir, next))
+                transitionActors[dir] = SceneTransitionActor.fromDir(dir, next)
+                this.add(transitionActors[dir])
             }
+        }
+        return transitionActors
+    }
+    activateTransitions(engine:Engine) {
+        for (const dir in this.transitionActors) {
+            let next = this.transitionActors[dir];
+            next.activate(engine)
         }
     }
 
@@ -314,7 +352,7 @@ export class LevelBase extends Scene {
             text: text,
             color: Color.Black,
             font: new Font({ 
-                size: 36,
+                size: 42,
                 family: "Helvetica",
                 baseAlign: ex.BaseAlign.Top,
                 textAlign: ex.TextAlign.Start,
@@ -336,6 +374,7 @@ export class LevelBase extends Scene {
             let pad = textData.padding;
             if (pad === undefined) {
                 pad = [15, 15]
+                textData.padding = pad
             }
             mw = mw - pad[0];
             textArgs.maxWidth = mw;
@@ -370,7 +409,6 @@ export class LevelBase extends Scene {
         //         }
         //     }
         // }
-        console.log(textData.width, textData.height)
         let {
             backgroundColor: bg, coords: _, text: _1, font: _2, maxWidth: _3, 
             ...subopts 
@@ -381,7 +419,6 @@ export class LevelBase extends Scene {
             opacity:textData.opacity,
             ...subopts
         };
-        console.log(textData)
         textOpts.color = Color.White;
         if (bg !== undefined) {
             if (typeof bg === "string") {
@@ -471,6 +508,8 @@ export class LevelBase extends Scene {
     override onActivate(context: SceneActivationContext<unknown>): void {
         // Called when Excalibur transitions to this scene
         // Only 1 scene is active at a time
+        context.engine.input.pointers.at(0).events.clear()
+        this.activateTransitions(context.engine)
     }
 
     override onDeactivate(context: SceneActivationContext): void {

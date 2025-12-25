@@ -9,11 +9,11 @@ export class Longs extends LevelBase {
         'right':'hazel'
     }
 
-        actorMap = {
+    actorMap = {
         gertie:{
             "character":"gertie",
-            "height":257.463,
-            "coords":[405.647,844.568]
+            "height":201.288,
+            "coords":[386.922,872.656]
         },
         
         long_bush:{
@@ -37,12 +37,13 @@ export class Longs extends LevelBase {
     
     textMap = {
         textbox:{
-            "text":`I think I see a skunk in the bushes! Let's watch out for that 
-        `,
+            "text":`I think I see a skunk in the bushes! Let's watch out for that`,
             "height":122.2,
             "width":657.708,
             "maxWidth":657.708,
-            "coords":[1213.22,137.061]
+            "coords":[1213.22,137.061],
+            "backgroundColor":"#FFFFFF",
+            "opacity":0.90196
         }
     }
 

@@ -9,28 +9,28 @@ export class Hazel extends LevelBase {
         'right':'argo'
     }
 
-        actorMap = {
-        brooklyn:{
-            "character":"brooklyn",
-            "height":151.055,
-            "coords":[272.473,850.75]
+    actorMap = {
+        balloons1:{
+            "character":"balloons1",
+            "height":50.0255,
+            "coords":[9.47687,471.668]
         },
         
         gertie:{
             "character":"gertie",
-            "height":241.413,
-            "coords":[1301.77,895.929]
+            "height":150.834,
+            "coords":[232.205,912.956]
         }
     }
     
     textMap = {
         textbox:{
-            "text":`It's Brooklyn! 
-He must have taken himself for a walk down to his friend Hazel's house`,
-            "height":235.0,
-            "width":699.077,
-            "maxWidth":699.077,
-            "coords":[1200.63,178.0]
+            "text":`There's a fork in the road! I think I see some balloons out to the left, though!`,
+            "height":178.6,
+            "width":681.775,
+            "maxWidth":681.775,
+            "coords":[1233.56,116.112],
+            "backgroundColor":"#FFFFFF"
         }
     }
 

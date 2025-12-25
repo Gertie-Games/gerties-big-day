@@ -1,11 +1,11 @@
 import { Character } from "./character";
-import { Resources, SpriteSheetLoader } from "../resources";
+import { SpriteSheetLoader } from "../resources";
 
 export class Gertie extends Character {
     name = "Gertie";
     spriteSheetLoader = SpriteSheetLoader.Gertie;
-    voiceLines = {
-        "default": Resources.VoiceLines.NoSidewalk
+    voiceLines = { 
+        // "default": Resources.VoiceLines.NoSidewalk
     }
     animationIndices = {
         "default": {

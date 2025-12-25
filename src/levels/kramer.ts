@@ -9,11 +9,11 @@ export class Kramer extends LevelBase {
         'right':'chand'
     }
 
-        actorMap = {
+    actorMap = {
         gertie:{
             "character":"gertie",
-            "height":204.963,
-            "coords":[923.006,778.118]
+            "height":175.262,
+            "coords":[913.106,792.968]
         },
         
         egg:{
@@ -25,19 +25,19 @@ export class Kramer extends LevelBase {
         bush:{
             "character":"bush",
             "height":175.262,
-            "coords":[321.534,844.883]
+            "coords":[317.522,843.278]
         }
     }
     
     textMap = {
         textbox:{
-            "text":`It's the Kramer's House! 
-         They lost an egg, can you help them find it? 
-        `,
+            "text":`It's the Kramer's House! They lost an egg, can you help them find it?`,
             "height":178.6,
             "width":660.575,
             "maxWidth":660.575,
-            "coords":[1206.5,232.7]
+            "coords":[1206.5,232.7],
+            "backgroundColor":"#FFFFFF",
+            "opacity":0.90588
         }
     }
 

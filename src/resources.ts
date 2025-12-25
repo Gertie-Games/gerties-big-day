@@ -9,8 +9,7 @@ export const Resources = {
     Megloon: new ImageSource("./images/characters/meg_balloon_more_string.png"),
     MegStringSegment: new ImageSource("./images/characters/meg_string_seg.png"),
     Tommy: new ImageSource("./images/characters/tommy_2.png"),
-    GertieSheet: new ImageSource("./images/characters/gertie_sheet_small.png"),
-    GertieSheetBig: new ImageSource("./images/characters/gertie_sheet.png"),
+    GertieSheet: new ImageSource("./images/characters/gertie_sheet.png"),
     Marnie: new ImageSource("./images/characters/marnie_cartoon.png"),
     Laney: new ImageSource("./images/characters/laney.png"),
     Gus: new ImageSource("./images/characters/gus_cartoon.png"),
@@ -82,17 +81,8 @@ export const SpriteSheetLoader: Record<string, () => SpriteSheet> = {
     grid: {
       rows: 1,
       columns: 10,
-      spriteWidth: 120,
-      spriteHeight: 120,
-    }
-  }),
-  GertieBig: () => SpriteSheet.fromImageSource({
-    image: Resources.Characters.GertieSheetBig,
-    grid: {
-      rows: 1,
-      columns: 10,
-      spriteWidth: 990,
-      spriteHeight: 990,
+      spriteWidth: 248,
+      spriteHeight: 248,
     }
   })
 }

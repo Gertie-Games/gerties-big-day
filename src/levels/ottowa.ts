@@ -37,12 +37,13 @@ export class Ottowa extends LevelBase {
     
     textMap = {
         textbox:{
-            "text":`Aunt Marge is blowing up like a balloon! Oh wait, that's just a big balloon of Aunt Marge and Uncle Tommy is carrying it down to the park! 
-        `,
+            "text":`Aunt Marge is blowing up like a balloon! Oh wait, that's just a big balloon of Aunt Marge and Uncle Tommy is carrying it down to the park!`,
             "height":291.4,
             "width":730.296,
             "maxWidth":730.296,
-            "coords":[1185.0,179.649]
+            "coords":[1185.0,179.649],
+            "backgroundColor":"#FFFFFF",
+            "opacity":0.90196
         }
     }
 

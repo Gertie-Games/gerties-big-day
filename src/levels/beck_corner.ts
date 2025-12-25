@@ -49,12 +49,12 @@ export class BeckCorner extends LevelBase {
     
     textMap = {
         textbox:{
-            "text":`It's Grandma and Grandpa with the dogs! I guess they're done studying the mushroom 
-        `,
+            "text":`It's Grandma and Grandpa with the dogs! I guess they're done studying the mushroom`,
             "height":235.0,
             "width":559.896,
             "maxWidth":559.896,
-            "coords":[1259.01,254.775]
+            "coords":[1259.01,199.402],
+
         }
     }
 
