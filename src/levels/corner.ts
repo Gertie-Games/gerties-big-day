@@ -28,10 +28,10 @@ export class Corner extends LevelBase {
             "text":`It's Spike the cat! 
  
 Let's pet Spike`,
-            "height":178.6,
+            "height":206.8,
             "width":419.762,
             "maxWidth":419.762,
-            "coords":[1214.74,188.38],
+            "coords":[1214.74,202.48],
             "backgroundColor":"#FFFFFF",
             "opacity":0.89804
         }

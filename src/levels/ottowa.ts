@@ -42,10 +42,10 @@ export class Ottowa extends LevelBase {
  Oh wait, that's just a balloon of Aunt 
  Marge and Uncle Tommy is carrying it 
  down to the park!`,
-            "height":291.4,
+            "height":394.8,
             "width":844.867,
             "maxWidth":844.867,
-            "coords":[1127.72,179.649],
+            "coords":[1127.72,231.349],
             "backgroundColor":"#FFFFFF",
             "opacity":0.90196
         }

@@ -51,11 +51,11 @@ export class BeckCorner extends LevelBase {
         textbox:{
             "text":`It's Grandma and Grandpa with the dogs! 
  
-I guess they're done studying the mushroom`,
-            "height":178.6,
+ I guess they're done studying the mushroom`,
+            "height":225.6,
             "width":977.143,
             "maxWidth":977.143,
-            "coords":[1072.47,117.573],
+            "coords":[1072.47,141.074],
             "backgroundColor":"#FFFFFF",
             "opacity":0.90588
         }

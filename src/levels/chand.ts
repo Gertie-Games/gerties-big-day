@@ -62,13 +62,13 @@ export class Chand extends LevelBase {
     textMap = {
         textbox:{
             "text":`It's Grandma and scientists! 
-
+ 
 "We've gotta study this cool mushroom. 
  Can you find another way around?"`,
-            "height":235.0,
-            "width":857.695,
-            "maxWidth":857.695,
-            "coords":[1130.97,157.934],
+            "height":282.0,
+            "width":883.688,
+            "maxWidth":883.688,
+            "coords":[1117.98,181.434],
             "backgroundColor":"#FFFFFF",
             "opacity":0.90588
         }

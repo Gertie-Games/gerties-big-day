@@ -40,10 +40,10 @@ export class Longs extends LevelBase {
             "text":`I think I see a skunk in the bushes! 
  
 Let's watch out for that`,
-            "height":178.6,
-            "width":732.654,
-            "maxWidth":732.654,
-            "coords":[1175.74,165.261],
+            "height":225.6,
+            "width":766.314,
+            "maxWidth":766.314,
+            "coords":[1158.91,188.761],
             "backgroundColor":"#FFFFFF",
             "opacity":0.84706
         }

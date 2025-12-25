@@ -136,14 +136,14 @@ export class Party extends LevelBase {
         textbox:{
             "text":`We made it and everyone is here! 
  
- Happy Birthday Gertie!`,
-            "height":178.6,
-            "width":716.992,
-            "maxWidth":716.992,
-            "coords":[1211.28,109.418],
+Happy Birthday Gertie!`,
+            "height":225.6,
+            "width":756.451,
+            "maxWidth":756.451,
+            "coords":[1191.55,132.918],
             "backgroundColor":"#FFFFFF",
             "opacity":0.89804
         }
     }
-    
+
 }

@@ -29,10 +29,10 @@ export class Hazel extends LevelBase {
 
 He must have taken himself for a 
 walk down to his friend Hazel's house`,
-            "height":235.0,
-            "width":811.75,
-            "maxWidth":811.75,
-            "coords":[1144.29,178.0],
+            "height":282.0,
+            "width":852.801,
+            "maxWidth":852.801,
+            "coords":[1123.77,201.5],
             "backgroundColor":"#FFFFFF",
             "opacity":0.85098
         }

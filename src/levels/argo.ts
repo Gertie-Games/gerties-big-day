@@ -25,17 +25,17 @@ export class Argo extends LevelBase {
     
     textMap = {
 
-        textbox: {
-            "text": `There's a fork in the road! 
+    textbox:{
+            "text":`There's a fork in the road! 
  
 I think I see some balloons out 
 to the left, though!`,
-            "height": 235.0,
-            "width": 681.775,
-            "maxWidth": 681.775,
-            "coords": [1233.56, 144.312],
-            "backgroundColor": "#FFFFFF",
-            "opacity": 0.90588
+            "height":282.0,
+            "width":731.733,
+            "maxWidth":731.733,
+            "coords":[1208.58,167.812],
+            "backgroundColor":"#FFFFFF",
+            "opacity":0.90588
         }
     }
 }
