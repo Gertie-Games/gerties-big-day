@@ -17,13 +17,34 @@ const game = new Engine({
   // fixedUpdateTimestep: 16 // Turn on fixed update timestep when consistent physic simulation is important
 });
 
-game.start('launch', { // name of the start scene 'start'
-  loader, // Optional loader (but needed for loading images/sounds)
-  inTransition: new FadeInOut({ // Optional in transition
-    duration: 1000,
-    direction: 'in',
-    color: Color.Black
-  })
-}).then(() => {
-  // Do something after the game starts
-});
+const searchParams = new URLSearchParams(window.location.search);
+const startScreenCheck = searchParams.get("start")
+let startScreen = 'launch'
+if (startScreenCheck !== null && startScreen.length > 0) {
+  startScreen = startScreenCheck
+}
+
+
+const validScreens = ["launch", "home", "corner", "kramer", "chand", "longs", "hazel", "argo", "ottowa", "beck_corner", "beckley", "party", "wakeup"] as const
+const trueStart = validScreens.find((trueScreen) => trueScreen === startScreen);
+if (trueStart) {
+  game.start(trueStart, { // name of the start scene 'start'
+    loader, // Optional loader (but needed for loading images/sounds)
+    inTransition: new FadeInOut({ // Optional in transition
+      duration: 1000,
+      direction: 'in',
+      color: Color.Black
+    })
+  }).then(() => {
+  });
+} else {
+  game.start('launch', { // name of the start scene 'start'
+    loader, // Optional loader (but needed for loading images/sounds)
+    inTransition: new FadeInOut({ // Optional in transition
+      duration: 1000,
+      direction: 'in',
+      color: Color.Black
+    })
+  }).then(() => {
+  });
+}

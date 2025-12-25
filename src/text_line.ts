@@ -16,18 +16,22 @@ import * as ex from "excalibur"
 
 export type TextLineOptions = ex.ActorArgs & {
     text: Text
-    voiceLine?: Sound
+    voiceLine?: Sound,
+    padding?: number[],
+    backgroundColor?: ex.Color,
 }
 
 export class TextLine extends Actor {
     text: Text;
     voiceLine?: Sound;
+    padding?: number[];
     constructor(textOpts: TextLineOptions) {
         super({
             name: 'Text',
             pos: vec(0, 0),
             ...textOpts
         });
+        this.padding = textOpts.padding??[15, 15];
         this.text = textOpts.text;
         this.graphics.use(
             new ex.GraphicsGroup({
@@ -37,11 +41,11 @@ export class TextLine extends Actor {
                             height: this.height,
                             width: this.width,
                             color: this.color,
-                            opacity: this.graphics.opacity
+                            opacity: textOpts.opacity
                         }), 
                         offset: ex.vec(0, 0)
                     },
-                    { graphic: this.text, offset: ex.vec(0, 0) }
+                    { graphic: this.text, offset: ex.vec(this.padding[0], this.padding[1]) }
                 ]
             })
         )

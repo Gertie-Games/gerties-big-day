@@ -51,15 +51,14 @@ export class Home extends LevelBase {
     textMap = {
         textbox:{
             "text":`It's Grandpa and the dogs! 
-         "Gertie, I can't remember how many 
-         leashes 
-         I need, can you help me 
-         count the dogs?" 
-        `,
+ 
+ "Gertie, I can't remember how many leashes I need, can you help me count the dogs?"`,
             "height":291.4,
             "width":758.026,
             "maxWidth":758.026,
-            "coords":[1185.61,200.801]
+            "coords":[1185.61,200.801],
+            "backgroundColor":"#FFFFFF",
+            "opacity":0.90196
         }
     }
 

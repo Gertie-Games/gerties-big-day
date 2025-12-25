@@ -6,6 +6,7 @@ import {
     ImageSource,
     Sprite, Keys
  } from "excalibur";
+ import * as ex from "excalibur"
 
 import { CharacterList } from "../characters/character_list";
 import { TextLine, TextLineOptions, TextList } from "../text_line";
@@ -17,20 +18,28 @@ type ActorData = ActorArgs & {
 
 type TextData = ActorArgs & TextOptions & {
     coords: number[],
-    backgroundColor?: Color
+    color?: Color|string,
+    backgroundColor?: Color|string,
+    padding?: number[]
 }
 
 type SceneTransitionArgs = ActorArgs & {
     scene: string,
-    bindings?: Keys[]
+    bindings?: Keys[],
+    dir?: string
 }
 class SceneTransitionActor extends Actor {
     sceneName: string
-    keyBindings: Keys[] | undefined;
+    keyBindings: Keys[] | undefined
+    dragDir?: string
+    engine?: Engine
+    _dragEv: ex.PointerEvent | null
     constructor(opts:SceneTransitionArgs) {
         super(opts);
         this.sceneName = opts.scene;
         this.keyBindings = opts.bindings;
+        this.dragDir = opts.dir;
+        this._dragEv = null
     }
 
     override onInitialize(engine: Engine): void {
@@ -48,7 +57,51 @@ class SceneTransitionActor extends Actor {
                 canvas.style.cursor = 'default';
             });
         }
+        
+        if (this.dragDir !== undefined) {
+            engine.input.pointers.primary.on('down', this._dragStart());
+            engine.input.pointers.primary.on('up', this._dragEnd(engine));
+        }
     }
+
+    _dragStart() {
+        const actor = this;
+        return function (ev:ex.PointerEvent) {
+            actor._dragEv = ev;
+            console.log("start", ev)
+        }
+    }
+
+    _dragEnd(engine:Engine) {
+        const actor = this;
+        return function (ev:ex.PointerEvent) {
+            let oldEv = actor._dragEv;
+            actor._dragEv = null;
+            if (actor.dragDir !== undefined) {
+                let applyTransition = false
+                const oldPos = oldEv?.screenPos
+                if (oldPos !== undefined) {
+                    const newPos = ev.screenPos;
+                    const xDiff = newPos.x - oldPos.x;
+                    const yDiff = Math.abs(newPos.y - oldPos.y);
+                    const absX = Math.abs(xDiff)
+                    if (absX > 20) { // allow for future dispatching
+                        if (absX > yDiff / 2) {
+                            if (xDiff < 0) {
+                                applyTransition = actor.dragDir == "right"
+                            } else {
+                                applyTransition = actor.dragDir == "left"
+                            }
+                        }
+                    }
+                }
+                if (applyTransition) {
+                    engine.goToScene(actor.sceneName)
+                }
+            }
+        }
+    }
+
 
     public update(engine:Engine, delta:number) {
         super.update(engine, delta)
@@ -81,7 +134,8 @@ class SceneTransitionActor extends Actor {
             width:50,
             height:100,
             color:Color.White,
-            bindings:bindings
+            bindings:bindings,
+            dir:dir
         })
     }
 }
@@ -199,7 +253,13 @@ export class LevelBase extends Scene {
         let textArgs:TextOptions = {
             text: text,
             color: Color.Black,
-            font: new Font({ size: 36 }),
+            font: new Font({ 
+                size: 36,
+                family: "Helvetica",
+                baseAlign: ex.BaseAlign.Top,
+                textAlign: ex.TextAlign.Start,
+                unit: ex.FontUnit.Px
+            }),
         }
         let val = textData.color;
         if (val !== undefined) {
@@ -213,6 +273,11 @@ export class LevelBase extends Scene {
             }
         }
         if (mw !== undefined) {
+            let pad = textData.padding;
+            if (pad === undefined) {
+                pad = [15, 15]
+            }
+            mw = mw - pad[0];
             textArgs.maxWidth = mw;
         }
         let textOpts:TextLineOptions = {
@@ -225,6 +290,27 @@ export class LevelBase extends Scene {
                 ...textOpts
             }
         }
+        // let w = textData.width;
+        // if (w !== undefined) {
+        //     let pos = textOpts.pos;
+        //     if (pos !== undefined) {
+        //         textOpts = {
+        //             pos:vec(pos.x+w/2, pos.y),
+        //             ...textOpts
+        //         }
+        //     }
+        // }
+        // let h = textData.height;
+        // if (h !== undefined) {
+        //     let pos = textOpts.pos;
+        //     if (pos !== undefined) {
+        //         textOpts = {
+        //             pos:vec(pos.x, pos.y+h/2),
+        //             ...textOpts
+        //         }
+        //     }
+        // }
+        console.log(textData.width, textData.height)
         let {
             backgroundColor: bg, coords: _, text: _1, font: _2, maxWidth: _3, 
             ...subopts 
@@ -232,11 +318,17 @@ export class LevelBase extends Scene {
         textOpts = {
             text:textOpts.text,
             pos:textOpts.pos,
+            opacity:textData.opacity,
             ...subopts
         };
+        console.log(textData)
         textOpts.color = Color.White;
         if (bg !== undefined) {
-            textOpts.color = bg
+            if (typeof bg === "string") {
+                textOpts.color = Color.fromHex(bg)
+            } else {
+                textOpts.color = bg as Color
+            }
         }
         return new TextLine(textOpts)
     }

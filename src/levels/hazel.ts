@@ -26,8 +26,7 @@ export class Hazel extends LevelBase {
     textMap = {
         textbox:{
             "text":`It's Brooklyn! 
-         He must have taken himself for a walk down to his friend Hazel's house 
-        `,
+He must have taken himself for a walk down to his friend Hazel's house`,
             "height":235.0,
             "width":699.077,
             "maxWidth":699.077,
