@@ -31,11 +31,13 @@ export class Kramer extends LevelBase {
     
     textMap = {
         textbox:{
-            "text":`It's the Kramer's House! They lost an egg, can you help them find it?`,
-            "height":178.6,
+            "text":`It's the Kramer's House! 
+
+They lost an egg, can you help them find it?`,
+            "height":235.0,
             "width":660.575,
             "maxWidth":660.575,
-            "coords":[1206.5,232.7],
+            "coords":[1206.5,201.163],
             "backgroundColor":"#FFFFFF",
             "opacity":0.90588
         }

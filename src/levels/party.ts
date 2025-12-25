@@ -3,6 +3,7 @@ import { Resources } from "../resources";
 
 export class Party extends LevelBase {
     backgroundImage = Resources.Scenes.Party;
+
     actorMap = {
         meg_balloon:{
             "character":"meg_balloon",
@@ -134,13 +135,15 @@ export class Party extends LevelBase {
     textMap = {
         textbox:{
             "text":`We made it and everyone is here! 
+ 
  Happy Birthday Gertie!`,
-            "height":122.2,
+            "height":178.6,
             "width":716.992,
             "maxWidth":716.992,
-            "coords":[1211.28,84.3732],
+            "coords":[1211.28,109.418],
             "backgroundColor":"#FFFFFF",
-            "opacity":0.85098
+            "opacity":0.89804
         }
     }
+    
 }

@@ -26,11 +26,12 @@ export class Corner extends LevelBase {
     textMap = {
         textbox:{
             "text":`It's Spike the cat! 
+ 
 Let's pet Spike`,
-            "height":122.2,
+            "height":178.6,
             "width":419.762,
             "maxWidth":419.762,
-            "coords":[1214.74,269.049],
+            "coords":[1214.74,188.38],
             "backgroundColor":"#FFFFFF",
             "opacity":0.89804
         }

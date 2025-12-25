@@ -13,7 +13,7 @@ export class Argo extends LevelBase {
         balloons1:{
             "character":"balloons1",
             "height":50.0255,
-            "coords":[9.47687,487.857]
+            "coords":[9.47687,471.668]
         },
         
         gertie:{
@@ -24,13 +24,18 @@ export class Argo extends LevelBase {
     }
     
     textMap = {
-        textbox:{
-            "text":`There's a fork in the road! I think I see some balloons out to the left, though! 
-        `,
-            "height":178.6,
-            "width":559.895,
-            "maxWidth":559.895,
-            "coords":[1294.5,116.112]
+
+        textbox: {
+            "text": `There's a fork in the road! 
+ 
+I think I see some balloons out 
+to the left, though!`,
+            "height": 235.0,
+            "width": 681.775,
+            "maxWidth": 681.775,
+            "coords": [1233.56, 144.312],
+            "backgroundColor": "#FFFFFF",
+            "opacity": 0.90588
         }
     }
 }

@@ -37,13 +37,15 @@ export class Longs extends LevelBase {
     
     textMap = {
         textbox:{
-            "text":`I think I see a skunk in the bushes! Let's watch out for that`,
-            "height":122.2,
-            "width":657.708,
-            "maxWidth":657.708,
-            "coords":[1213.22,137.061],
+            "text":`I think I see a skunk in the bushes! 
+ 
+Let's watch out for that`,
+            "height":178.6,
+            "width":732.654,
+            "maxWidth":732.654,
+            "coords":[1175.74,165.261],
             "backgroundColor":"#FFFFFF",
-            "opacity":0.90196
+            "opacity":0.84706
         }
     }
 

@@ -76,7 +76,7 @@ class SceneTransitionActor extends Actor {
                             family: "Helvetica",
                             baseAlign: ex.BaseAlign.Middle,
                             textAlign: ex.TextAlign.End,
-                            // unit: ex.FontUnit.Px
+                            unit: ex.FontUnit.Px
                         }),
                     })
                 )                
@@ -90,7 +90,7 @@ class SceneTransitionActor extends Actor {
                             family: "Helvetica",
                             baseAlign: ex.BaseAlign.Middle,
                             textAlign: ex.TextAlign.Left,
-                            // unit: ex.FontUnit.Px
+                            unit: ex.FontUnit.Px
                         }),
                     })
                 )
@@ -352,11 +352,11 @@ export class LevelBase extends Scene {
             text: text,
             color: Color.Black,
             font: new Font({ 
-                size: 42,
+                size: 46,
                 family: "Helvetica",
                 baseAlign: ex.BaseAlign.Top,
                 textAlign: ex.TextAlign.Start,
-                // unit: ex.FontUnit.Px
+                unit: ex.FontUnit.Px
             }),
         }
         let val = textData.color;

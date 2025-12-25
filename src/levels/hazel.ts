@@ -10,27 +10,31 @@ export class Hazel extends LevelBase {
     }
 
     actorMap = {
-        balloons1:{
-            "character":"balloons1",
-            "height":50.0255,
-            "coords":[9.47687,471.668]
+        brooklyn:{
+            "character":"brooklyn",
+            "height":151.055,
+            "coords":[272.473,850.75]
         },
         
         gertie:{
             "character":"gertie",
-            "height":150.834,
-            "coords":[232.205,912.956]
+            "height":205.125,
+            "coords":[1289.68,914.073]
         }
     }
     
     textMap = {
         textbox:{
-            "text":`There's a fork in the road! I think I see some balloons out to the left, though!`,
-            "height":178.6,
-            "width":681.775,
-            "maxWidth":681.775,
-            "coords":[1233.56,116.112],
-            "backgroundColor":"#FFFFFF"
+            "text":`It's Brooklyn! 
+
+He must have taken himself for a 
+walk down to his friend Hazel's house`,
+            "height":235.0,
+            "width":811.75,
+            "maxWidth":811.75,
+            "coords":[1144.29,178.0],
+            "backgroundColor":"#FFFFFF",
+            "opacity":0.85098
         }
     }
 
