@@ -34,12 +34,72 @@ class SceneTransitionActor extends Actor {
     dragDir?: string
     engine?: Engine
     _dragEv: ex.PointerEvent | null
+    _eventMap: Record<string, (ev: ex.PointerEvent)=>null >
     constructor(opts:SceneTransitionArgs) {
-        super(opts);
-        this.sceneName = opts.scene;
-        this.keyBindings = opts.bindings;
-        this.dragDir = opts.dir;
+        let {
+            scene: scene, bindings:bindings, dir:dir,
+            ...subopts 
+        } = opts;
+        if (subopts.width === undefined) {
+            subopts.width = 50
+        }
+        if (subopts.height === undefined) {
+            subopts.height = 100
+        }
+        super(subopts);
+        this.sceneName = scene;
+        this.keyBindings = bindings;
+        this.dragDir = dir
+        this.setGraphics(dir)
         this._dragEv = null
+        this._eventMap = {}
+    }
+
+    setGraphics(dir?:string) {
+        if (dir !== undefined) {
+            if (dir === "right") {
+                this.graphics.use(
+                    new ex.Text({
+                        text: "»",
+                        color: Color.Gray,
+                        font: new Font({ 
+                            size: 108,
+                            family: "Helvetica",
+                            baseAlign: ex.BaseAlign.Middle,
+                            textAlign: ex.TextAlign.End,
+                            // unit: ex.FontUnit.Px
+                        }),
+                    })
+                )                
+            } else if (dir === "left") {
+                this.graphics.use(
+                    new ex.Text({
+                        text: "«",
+                        color: Color.Gray,
+                        font: new Font({ 
+                            size: 108,
+                            family: "Helvetica",
+                            baseAlign: ex.BaseAlign.Middle,
+                            textAlign: ex.TextAlign.Start,
+                            // unit: ex.FontUnit.Px
+                        }),
+                    })
+                )
+
+            }
+        }
+    }
+
+    override onRemove(engine: Engine): void {
+        let downEvent = this._eventMap["down"];
+        if (downEvent !== undefined) {
+            engine.input.pointers.primary.off('down', downEvent);
+        }
+        let upEvent = this._eventMap["up"];
+        if (upEvent !== undefined) {
+            engine.input.pointers.primary.off('up', upEvent);
+        }
+
     }
 
     override onInitialize(engine: Engine): void {
@@ -131,9 +191,6 @@ class SceneTransitionActor extends Actor {
         return new SceneTransitionActor({
             scene:scene,
             pos:pos,
-            width:50,
-            height:100,
-            color:Color.White,
             bindings:bindings,
             dir:dir
         })
@@ -159,6 +216,9 @@ export class LevelBase extends Scene {
         }
         this.loadTransitions();
         this.loadMusic();
+
+        engine.input.pointers.primary.off("down");
+        engine.input.pointers.primary.off("up");
     }
 
     loadMusic() {
@@ -258,7 +318,7 @@ export class LevelBase extends Scene {
                 family: "Helvetica",
                 baseAlign: ex.BaseAlign.Top,
                 textAlign: ex.TextAlign.Start,
-                unit: ex.FontUnit.Px
+                // unit: ex.FontUnit.Px
             }),
         }
         let val = textData.color;
