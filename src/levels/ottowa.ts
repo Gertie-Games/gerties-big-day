@@ -39,9 +39,9 @@ export class Ottowa extends LevelBase {
         textbox:{
             "text":`Aunt Marge is blowing up like a balloon! 
  
- Oh wait, that's just a balloon of Aunt 
- Marge and Uncle Tommy is carrying it 
- down to the park!`,
+Oh wait, that's just a balloon of Aunt 
+Marge and Uncle Tommy is carrying it 
+down to the park!`,
             "height":394.8,
             "width":844.867,
             "maxWidth":844.867,

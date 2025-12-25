@@ -40,10 +40,10 @@ export class Beckley extends LevelBase {
             "text":`There are definitely balloons there! 
  
 Let's go!`,
-            "height":178.6,
-            "width":741.653,
-            "maxWidth":741.653,
-            "coords":[459.102,151.139],
+            "height":225.6,
+            "width":809.97,
+            "maxWidth":809.97,
+            "coords":[493.261,174.639],
             "backgroundColor":"#FFFFFF",
             "opacity":0.84706
         }
